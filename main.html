@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="Style_sheet.css">
+    <meta charset="utf-8">
+    <title> Series Manager</title>
+    <link rel="icon" href="favicon.ico">
+  </head>
+
+
+  <body>
+    <a href = "#form" onclick = "showForm()"> Click Here to Show The Form</a>  <br><br>
+      <div id="theform">
+        <form name="serie_form">
+          Nome da Série:            <div class="space"></div>  <input type="text" name="Name"      id="usrname">      <br>
+          Nome do canal de origem:  <div class="space"></div>  <input type="text" name="Channel"   id="usrchannel">   <br>
+          País de origem:           <div class="space"></div>  <input type="text" name="Country"   id="usrcountry">   <br>
+          Ano em que estreou:       <div class="space"></div>  <input type="text" name="Year"      id="usryear">      <br>
+          Resumo:                   <div class="space"></div>  <textarea rows="4" cols="50" name="Overview" id="usroverview"> </textarea><br>
+          Imagem (Link):            <div class="space"></div>  <input type="text" name="Logo"      id="usrlogo">      <br>
+          Informação:               <div class="space"></div>  <input type="text" name="Info"      id="usrinfo">      <br><br>
+
+          <input type="button" name="botao" id="botao"  class="btn" value="Adicionar">
+        </form>
+      </div>
+
+      <script type = "text/javascript">
+
+      function showForm(){
+        document.getElementById("theform").style.display = "block";
+      }
+      
+      function updateTxt() {
+        var name      = document.getElementById('usrname').value;
+        var channel   = document.getElementById('usrchannel').value;
+        var country   = document.getElementById('usrcountry').value;
+        var year      = document.getElementById('usryear').value;
+        var overview  = document.getElementById('usroverview').value;
+        var logo      = document.getElementById('usrlogo').value;
+        var info      = document.getElementById('usrinfo').value;
+      }
+    </script>
+
+  </body>
+</html>

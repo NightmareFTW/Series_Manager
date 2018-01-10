@@ -1,0 +1,16 @@
+
+
+
+.form{
+    text-align: justify;
+    font-weight: bold;
+    display: none;
+}
+
+.space{
+  padding-right: 20px;
+}
+
+body{
+  overflow: hidden;
+}
