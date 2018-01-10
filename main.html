@@ -10,8 +10,8 @@
 
 
   <body>
-    <a href = "#form" onclick = "showForm()"> Click Here to Show The Form</a>  <br><br>
-      <div id="theform">
+    <a href = "#" onclick = "showForm()"> Adicionar nova Série </a>  <br><br>
+      <div id = "theform">
         <form name="serie_form">
           Nome da Série:            <div class="space"></div>  <input type="text" name="Name"      id="usrname">      <br>
           Nome do canal de origem:  <div class="space"></div>  <input type="text" name="Channel"   id="usrchannel">   <br>
@@ -25,12 +25,12 @@
         </form>
       </div>
 
-      <script type = "text/javascript">
+      <script>
 
       function showForm(){
         document.getElementById("theform").style.display = "block";
       }
-      
+
       function updateTxt() {
         var name      = document.getElementById('usrname').value;
         var channel   = document.getElementById('usrchannel').value;
