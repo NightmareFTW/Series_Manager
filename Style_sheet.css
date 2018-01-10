@@ -2,9 +2,21 @@
 
 
 #theform{
-    text-align: justify;
-    font-weight: bold;
-    display: none;
+  text-align: justify;
+  font-weight: bold;
+  display: none;
+}
+
+#add_serie{
+  background-color: #3A86B7;
+  border: none;
+  color: #000000;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 30px;
+  font-family: fantasy, sans-serif;
 }
 
 .space{
@@ -13,4 +25,13 @@
 
 body{
   overflow: hidden;
+  color: #3A86B7;
+  background-color: #000000;
+}
+
+body a{
+  text-decoration: none;
+  font-size: 30px;
+  color: #3A86B7;
+  background-color: #000000;
 }

@@ -10,26 +10,31 @@
 
 
   <body>
-    <a href = "#" onclick = "showForm()"> Adicionar nova Série </a>  <br><br>
+    <a href = "#" onclick = "showForm()" id="add_serie"> Adicionar nova Série </a>  <br><br>
       <div id = "theform">
         <form name="serie_form">
-          Nome da Série:            <div class="space"></div>  <input type="text" name="Name"      id="usrname">      <br>
-          Nome do canal de origem:  <div class="space"></div>  <input type="text" name="Channel"   id="usrchannel">   <br>
-          País de origem:           <div class="space"></div>  <input type="text" name="Country"   id="usrcountry">   <br>
-          Ano em que estreou:       <div class="space"></div>  <input type="text" name="Year"      id="usryear">      <br>
-          Resumo:                   <div class="space"></div>  <textarea rows="4" cols="50" name="Overview" id="usroverview"> </textarea><br>
-          Imagem (Link):            <div class="space"></div>  <input type="text" name="Logo"      id="usrlogo">      <br>
-          Informação:               <div class="space"></div>  <input type="text" name="Info"      id="usrinfo">      <br><br>
+          Nome da Série:            <br>  <input type="text" name="Name"      id="usrname">      <br>
+          Nome do canal de origem:  <br>  <input type="text" name="Channel"   id="usrchannel">   <br>
+          País de origem:           <br>  <input type="text" name="Country"   id="usrcountry">   <br>
+          Ano em que estreou:       <br>  <input type="text" name="Year"      id="usryear">      <br>
+          Resumo:                   <br>  <textarea rows="4" cols="50" name="Overview" id="usroverview"> </textarea><br>
+          Imagem (Link):            <br>  <input type="text" name="Logo"      id="usrlogo">      <br><br>
+          Série Cancelada:          <br> Sim <input type="radio" name="Info"      id="usrinfoyes">
+                                         Não <input type="radio" name="Info"      id="usrinfono">   <br><br>
 
-          <input type="button" name="botao" id="botao"  class="btn" value="Adicionar">
+          <input type="button" name="button" id="button"  class="btn" value="Adicionar">
         </form>
       </div>
+
+      <div id = "box"></div>
 
       <script>
 
       function showForm(){
         document.getElementById("theform").style.display = "block";
       }
+
+      document.getElementById('button').addEventListener("click", function(){updateTxt()});
 
       function updateTxt() {
         var name      = document.getElementById('usrname').value;
@@ -38,8 +43,25 @@
         var year      = document.getElementById('usryear').value;
         var overview  = document.getElementById('usroverview').value;
         var logo      = document.getElementById('usrlogo').value;
-        var info      = document.getElementById('usrinfo').value;
+
+        var info      = "";
+          if (document.getElementById('usrinfoyes').checked)
+            info = "Sim";
+          else
+            info = "Não";
       }
+
+      function supports_html5_storage() {
+        try {
+          return 'localStorage' in window && window['localStorage'] !== null;
+        } catch (e) {
+          return false;
+        }
+      }
+      if(supports_html5_storage()){
+//.................
+}
+
     </script>
 
   </body>

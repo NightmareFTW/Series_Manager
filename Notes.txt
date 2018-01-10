@@ -1,0 +1,3 @@
+Trabalho: https://elearning.estgoh.ipc.pt/pluginfile.php/83500/mod_resource/content/1/tp_2_1718.pdf
+Local Storage: https://stackoverflow.com/questions/17087636/how-to-save-data-from-a-form-with-html5-local-storage
+Tutorial prof: https://elearning.estgoh.ipc.pt/pluginfile.php/83408/mod_resource/content/5/8-JavaScript.pdf
