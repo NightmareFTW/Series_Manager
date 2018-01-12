@@ -13,14 +13,14 @@
     <a href = "#" onclick = "showForm()" id="add_serie"> Adicionar nova Série </a>  <br><br>
       <div id = "theform">
         <form name="serie_form">
-          Nome da Série:            <br>  <input type="text" name="Name"      id="usrname">      <br>
-          Nome do canal de origem:  <br>  <input type="text" name="Channel"   id="usrchannel">   <br>
-          País de origem:           <br>  <input type="text" name="Country"   id="usrcountry">   <br>
-          Ano em que estreou:       <br>  <input type="text" name="Year"      id="usryear">      <br>
+          Nome da Série:            <br>  <input type="text" name="Name"  id="usrname">      <br>
+          Nome do canal de origem:  <br>  <input type="text" name="Channel" id="usrchannel">   <br>
+          País de origem:           <br>  <input type="text" name="Country"            id="usrcountry">   <br>
+          Ano em que estreou:       <br>  <input type="text" name="Year"               id="usryear">      <br>
           Resumo:                   <br>  <textarea rows="4" cols="50" name="Overview" id="usroverview"> </textarea><br>
-          Imagem (Link):            <br>  <input type="text" name="Logo"      id="usrlogo">      <br><br>
-          Série Cancelada:          <br> Sim <input type="radio" name="Info"      id="usrinfoyes">
-                                         Não <input type="radio" name="Info"      id="usrinfono">   <br><br>
+          Imagem (Link):            <br>  <input type="text" name="Logo"               id="usrlogo">      <br><br>
+          Série Cancelada:          <br> Sim <input type="radio" name="Info"           id="usrinfoyes">
+                                         Não <input type="radio" name="Info"           id="usrinfono">   <br><br>
 
           <input type="button" name="button" id="button"  class="btn" value="Adicionar">
         </form>
@@ -30,6 +30,25 @@
 
       <script>
 
+
+      var array_de_series = [];
+      var array_de_seasons = [];
+
+      //para carregar dados do LS
+      carrega_series();
+
+      // prototipo do objecto serie
+      var serie = {
+        name: '',
+        channel: '',
+        country: '',
+        year : '',
+        overview : '',
+        logo : '',
+        canceled: 'Não',
+        seasons: []
+      }
+
       function showForm(){
         document.getElementById("theform").style.display = "block";
       }
@@ -37,30 +56,89 @@
       document.getElementById('button').addEventListener("click", function(){updateTxt()});
 
       function updateTxt() {
-        var name      = document.getElementById('usrname').value;
-        var channel   = document.getElementById('usrchannel').value;
-        var country   = document.getElementById('usrcountry').value;
-        var year      = document.getElementById('usryear').value;
-        var overview  = document.getElementById('usroverview').value;
-        var logo      = document.getElementById('usrlogo').value;
 
-        var info      = "";
-          if (document.getElementById('usrinfoyes').checked)
-            info = "Sim";
+        var novaserie = Object.create(serie);
+
+          novaserie.name = document.getElementById('usrname').value;
+          novaserie.channel   = document.getElementById('usrchannel').value;
+          novaserie.country   = document.getElementById('usrcountry').value;
+          novaserie.year      = document.getElementById('usryear').value;
+          novaserie.overview  = document.getElementById('usroverview').value;
+          novaserie.logo      = document.getElementById('usrlogo').value;
+          if(document.getElementById('usrinfoyes').checked)
+              novaserie.canceled = "Sim";
           else
-            info = "Não";
-      }
+              novaserie.canceled = "Não";
 
-      function supports_html5_storage() {
-        try {
-          return 'localStorage' in window && window['localStorage'] !== null;
-        } catch (e) {
-          return false;
+          novaserie.seasons = [];
+
+          //adicionar ao array de Series
+          array_de_series[array_de_series.length] = novaserie;
+
+          //guardar no localStorage
+          guarda_series(array_de_series);
+
+          //limpar form
+          document.getElementById('usrname').value = '';
+
+          document.getElementById('usrinfoyes').checked = false;
+          document.getElementById('usrinfono').checked = false;
+
+
         }
-      }
-      if(supports_html5_storage()){
-//.................
-}
+
+        var season = {
+          idserie: 0,
+          name: ''
+        }
+
+        function newSeason(id){
+
+          //CRIAR NOVO OBJECTO E ADICIONAR
+
+          var novaseason = Object.create(season);
+          novaseason.idserie = id;
+          novaseason.name = 'Walking dead';
+
+          array_de_seasons[array_de_seasons[id].length] = novaseason;
+
+          guarda_seasons(array_de_seasons);
+        }
+
+
+
+        // para guardar os dados no localstorage
+        function guarda_series(data){
+            localStorage.setItem('asMinhasSeries', JSON.stringify(data));
+        }
+
+        // para caregar dos dados do localstorage
+        function carrega_series(){
+          var objectoSerializado = localStorage.getItem('asMinhasSeries'); //string
+          if(objectoSerializado != null){
+            array_de_series = JSON.parse(objectoSerializado);
+          } else {
+            array_de_series = [];
+          }
+          //mostra_dados();
+        }
+
+        // para guardar os dados no localstorage
+        function guarda_seasons(data){
+            localStorage.setItem('asMinhasSeasons', JSON.stringify(data));
+        }
+
+        // para caregar dos dados do localstorage
+        function carrega_seasons(id){
+          var objectoSerializado = localStorage.getItem('asMinhasSeasons'); //string
+          if(objectoSerializado != null){
+            array_de_seasons = JSON.parse(objectoSerializado);
+          } else {
+            array_de_seasons = [];
+          }
+          //mostra_dados();
+        }
+
 
     </script>
 
