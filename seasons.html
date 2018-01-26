@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="Style_sheet.css">
+    <meta charset="utf-8">
+    <title> Series Manager</title>
+    <link rel="icon" href="favicon.ico">
+  </head>
+
+
+  <body>
+    <a href = "#" onclick = "showForm()" id="add_season"> Adicionar nova Temporada </a>  <br><br>
+      <div id = "seasonform">
+        <form name="season_form">
+          <br><br>
+          Nome da Temporada:         <br>  <input type="text" name="NameSeason"               id="usrseasonname">      <br>
+          Descrição:                 <br>  <textarea rows="4" cols="50" name="Description"    id="usrseasondescription"> </textarea><br>
+          Imagem (Link):             <br>  <input type="text" name="Image"                    id="usrseasonimage">      <br><br>
+
+          <input type="button" name="button" id="button"  class="btns" value="Adicionar"><br><br>
+        </form>
+      </div>
+
+    <br><br>
+    <a href = "#" onclick = "showList()" id="show_seasons"> Mostrar lista de temporadas </a>  <br><br>
+      <br><br>
+      <span id="resultadoFinal"></span>
+
+
+<script>
+
+  var array_de_seasons = [];
+
+//carregar dados do ls
+  carrega_seasons();
+
+//prototipo
+  var season = {
+    idserie: localStorage.nomeserie,
+    name: '',
+    description: '',
+    image: ''
+  }
+
+
+  function showForm(){
+    document.getElementById("seasonform").style.display = "block";
+  }
+
+    document.getElementById('button').addEventListener("click", function(){updateTxt()});
+
+
+  function updateTxtSeasons() {
+
+    var novaseason = Object.create(season);
+
+      novaseason.name          = document.getElementById('usrseasonname').value;
+      novaseason.id            = document.getElementById('usrseasonname').value;
+      novaseason.description   = document.getElementById('usrseasondescription').value;
+      novaseason.image         = document.getElementById('usrseasonimage').value;
+
+
+      novaseason.episodes = [];
+
+      //adicionar ao array de Series
+      array_de_seasons[array_de_seasons.length] = novaseason;
+
+      //guardar no localStorage
+      guarda_seasons(array_de_seasons);
+
+      //limpar form
+      document.getElementById('usrseasonname').value = '';
+      document.getElementById('usrseasondescription').value = '';
+      document.getElementById('usrseasonimage').value = '';
+
+    }
+
+    // para guardar os dados no localstorage
+    function guarda_seasons(data){
+        localStorage.setItem('asMinhasSeasons', JSON.stringify(data));
+    }
+
+    // para caregar dos dados do localstorage
+    function carrega_seasons(id){
+      var objectoSerializado = localStorage.getItem('asMinhasSeasons'); //string
+      if(objectoSerializado != null){
+        array_de_seasons = JSON.parse(objectoSerializado);
+      } else {
+        array_de_seasons = [];
+      }
+      //mostra_dados();
+    }
+
+    function showList(){
+      var result = '<table>';
+        result += '<tr><th>Nome</th><th>Descrição</th><th>Imagem</th></tr>';
+        var tamanho = array_de_seasons.length
+        if(tamanho > 0){
+          for(i=0; i<tamanho; i++){
+             result += '<tr><td>' + array_de_seasons[i].name +'</td><td>' + array_de_seasons[i].description +'</td><td>' + array_de_seasons[i].image +'</td><td><input type="button" value="ver seasons" onclick="mostra_episodes(\''+ array_de_episodes[i].name + '\')"></td></tr>';
+          }
+        }  else{
+        result += '<tr><td colspan="2">Não há dados para apresentar!</td></tr>';
+      }
+      result += '</table>';
+      document.getElementById('resultadoFinal').innerHTML = result;
+    }
+
+</script>

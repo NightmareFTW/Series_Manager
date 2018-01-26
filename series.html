@@ -13,8 +13,9 @@
     <a href = "#" onclick = "showForm()" id="add_serie"> Adicionar nova Série </a>  <br><br>
       <div id = "theform">
         <form name="serie_form">
-          Nome da Série:            <br>  <input type="text" name="Name"  id="usrname">      <br>
-          Nome do canal de origem:  <br>  <input type="text" name="Channel" id="usrchannel">   <br>
+          <br><br>
+          Nome da Série:            <br>  <input type="text" name="Name"               id="usrname">      <br>
+          Nome do canal de origem:  <br>  <input type="text" name="Channel"            id="usrchannel">   <br>
           País de origem:           <br>  <input type="text" name="Country"            id="usrcountry">   <br>
           Ano em que estreou:       <br>  <input type="text" name="Year"               id="usryear">      <br>
           Resumo:                   <br>  <textarea rows="4" cols="50" name="Overview" id="usroverview"> </textarea><br>
@@ -22,20 +23,27 @@
           Série Cancelada:          <br> Sim <input type="radio" name="Info"           id="usrinfoyes">
                                          Não <input type="radio" name="Info"           id="usrinfono">   <br><br>
 
-          <input type="button" name="button" id="button"  class="btn" value="Adicionar">
+          <input type="button" name="button" id="button"  class="btn" value="Adicionar"><br><br>
         </form>
       </div>
 
-      <div id = "box"></div>
+      <br><br>
+      <a href = "#" onclick = "showList()" id="show_series"> Mostrar lista de séries </a>  <br><br>
+        <br><br>
+        <span id="resultadoFinal"></span>
+
+
+
+
 
       <script>
 
 
       var array_de_series = [];
-      var array_de_seasons = [];
 
       //para carregar dados do LS
       carrega_series();
+      carrega_seasons();
 
       // prototipo do objecto serie
       var serie = {
@@ -59,7 +67,7 @@
 
         var novaserie = Object.create(serie);
 
-          novaserie.name = document.getElementById('usrname').value;
+          novaserie.name      = document.getElementById('usrname').value;
           novaserie.channel   = document.getElementById('usrchannel').value;
           novaserie.country   = document.getElementById('usrcountry').value;
           novaserie.year      = document.getElementById('usryear').value;
@@ -80,37 +88,32 @@
 
           //limpar form
           document.getElementById('usrname').value = '';
-
+          document.getElementById('usrchannel').value = '';
+          document.getElementById('usrcountry').value = '';
+          document.getElementById('usryear').value = '';
+          document.getElementById('usroverview').value = '';
           document.getElementById('usrinfoyes').checked = false;
           document.getElementById('usrinfono').checked = false;
 
 
         }
 
-        var season = {
-          idserie: 0,
-          name: ''
+//TO DO!!!!!!!!!!!!!!!!!!!!!!
+        function remover_serie(nome_serie){}
+
+        function editar_serie(nome_serie){}
+
+        function mostra_seasons(nome_serie){
+            localStorage.nomeserie = nome_serie;
+            location.href = 'seasons.html';
         }
-
-        function newSeason(id){
-
-          //CRIAR NOVO OBJECTO E ADICIONAR
-
-          var novaseason = Object.create(season);
-          novaseason.idserie = id;
-          novaseason.name = 'Walking dead';
-
-          array_de_seasons[array_de_seasons[id].length] = novaseason;
-
-          guarda_seasons(array_de_seasons);
-        }
-
 
 
         // para guardar os dados no localstorage
         function guarda_series(data){
             localStorage.setItem('asMinhasSeries', JSON.stringify(data));
         }
+
 
         // para caregar dos dados do localstorage
         function carrega_series(){
@@ -123,20 +126,20 @@
           //mostra_dados();
         }
 
-        // para guardar os dados no localstorage
-        function guarda_seasons(data){
-            localStorage.setItem('asMinhasSeasons', JSON.stringify(data));
-        }
-
-        // para caregar dos dados do localstorage
-        function carrega_seasons(id){
-          var objectoSerializado = localStorage.getItem('asMinhasSeasons'); //string
-          if(objectoSerializado != null){
-            array_de_seasons = JSON.parse(objectoSerializado);
-          } else {
-            array_de_seasons = [];
+        // para mostrar os dados já inseridos
+        function showList(){
+          var result = '<table>';
+            result += '<tr><th>Nome</th><th>Canal</th><th>País</th><th>Ano</th><th>Resumo</th><th>Logo</th><th>Cancelada</th></tr>';
+            var tamanho = array_de_series.length
+            if(tamanho > 0){
+              for(i=0; i<tamanho; i++){
+                 result += '<tr><td>' + array_de_series[i].name +'</td><td>' + array_de_series[i].channel +'</td><td>' + array_de_series[i].country +'</td><td>' + array_de_series[i].year +'</td><td>' + array_de_series[i].overview +'</td><td>' + array_de_series[i].logo +'</td><td>' + array_de_series[i].canceled +'</td><td><input type="button" value="ver seasons" onclick="mostra_seasons(\''+ array_de_series[i].name + '\')"></td></tr>';
+              }
+            }  else{
+            result += '<tr><td colspan="2">Não há dados para apresentar!</td></tr>';
           }
-          //mostra_dados();
+          result += '</table>';
+          document.getElementById('resultadoFinal').innerHTML = result;
         }
 
 

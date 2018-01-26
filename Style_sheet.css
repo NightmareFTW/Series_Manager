@@ -7,6 +7,12 @@
   display: none;
 }
 
+#seasonform{
+  text-align: justify;
+  font-weight: bold;
+  display: none;
+}
+
 #add_serie{
   background-color: #3A86B7;
   border: none;
@@ -17,6 +23,46 @@
   display: inline-block;
   font-size: 30px;
   font-family: fantasy, sans-serif;
+  float: left;
+}
+
+#add_season{
+  background-color: #3A86B7;
+  border: none;
+  color: #000000;
+  padding: 15px 19px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 30px;
+  font-family: fantasy, sans-serif;
+  float: left;
+}
+
+#show_series{
+  background-color: #3A86B7;
+  border: none;
+  color: #000000;
+  padding: 15px 21px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 30px;
+  font-family: fantasy, sans-serif;
+  float: left;
+}
+
+#show_seasons{
+  background-color: #3A86B7;
+  border: none;
+  color: #000000;
+  padding: 15px 21px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 30px;
+  font-family: fantasy, sans-serif;
+  float: left;
 }
 
 .space{
