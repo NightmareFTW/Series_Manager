@@ -37,7 +37,7 @@
 
 //prototipo
   var season = {
-    idserie: localStorage.nomeserie,
+    idserie: '',
     name: '',
     description: '',
     image: ''
@@ -48,15 +48,14 @@
     document.getElementById("seasonform").style.display = "block";
   }
 
-    document.getElementById('button').addEventListener("click", function(){updateTxt()});
+    document.getElementById('button').addEventListener("click", function(){updateTxtSeasons()});
 
 
   function updateTxtSeasons() {
 
     var novaseason = Object.create(season);
-
+      novaseason.idserie       = localStorage.nomeserie,
       novaseason.name          = document.getElementById('usrseasonname').value;
-      novaseason.id            = document.getElementById('usrseasonname').value;
       novaseason.description   = document.getElementById('usrseasondescription').value;
       novaseason.image         = document.getElementById('usrseasonimage').value;
 
@@ -82,10 +81,27 @@
     }
 
     // para caregar dos dados do localstorage
-    function carrega_seasons(id){
+    function carrega_seasons(){
+
+      // carregar toddas ass seasons
       var objectoSerializado = localStorage.getItem('asMinhasSeasons'); //string
       if(objectoSerializado != null){
         array_de_seasons = JSON.parse(objectoSerializado);
+
+        // filtrar as seasons para as quais idserie = localStorage.nomeserie
+
+
+        var array_de_seasons_v = []
+        var length_check = array_de_seasons.length
+          if(length_check > 0){
+            for(i=0; i < length_check; i++){
+              if(array_de_seasons[i].idserie == localStorage.nomeserie){
+                 array_de_seasons_v[array_de_seasons_v.length] = array_de_seasons[i];
+              }
+            }
+          }
+        array_de_seasons = array_de_seasons_v;
+
       } else {
         array_de_seasons = [];
       }
@@ -98,7 +114,7 @@
         var tamanho = array_de_seasons.length
         if(tamanho > 0){
           for(i=0; i<tamanho; i++){
-             result += '<tr><td>' + array_de_seasons[i].name +'</td><td>' + array_de_seasons[i].description +'</td><td>' + array_de_seasons[i].image +'</td><td><input type="button" value="ver seasons" onclick="mostra_episodes(\''+ array_de_episodes[i].name + '\')"></td></tr>';
+             result += '<tr><td>' + array_de_seasons[i].name +'</td><td>' + array_de_seasons[i].description +'</td><td>' + array_de_seasons[i].image +'</td><td><input type="button" value="ver seasons" onclick="mostra_episodes(></td></tr>';
           }
         }  else{
         result += '<tr><td colspan="2">Não há dados para apresentar!</td></tr>';
